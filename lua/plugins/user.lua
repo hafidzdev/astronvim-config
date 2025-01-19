@@ -41,7 +41,8 @@ return {
 
   -- You can disable default plugins as follows:
   { "max397574/better-escape.nvim", enabled = true },
-
+  { "github/copilot.vim", enabled = false },
+  { "brenoprata10/nvim-highlight-colors", enabled = true },
   -- You can also easily customize additional setup of plugins that is outside of the plugin's setup call
   {
     "L3MON4D3/LuaSnip",
