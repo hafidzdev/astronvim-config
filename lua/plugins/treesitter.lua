@@ -6,21 +6,22 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
-    ensure_installed = {
-      "lua",
-      "vim",
-      "javascript",
-      "typescript",
-      "css",
-      "scss",
-      "json",
-      "http",
-      "vim",
-      "sql",
-      "gitignore",
-      "rust",
-      "zig",
-      -- add more arguments for adding more treesitter parsers
-    },
+    auto_install = true,
+    -- ensure_installed = {
+    --   "lua",
+    --   "vim",
+    --   "javascript",
+    --   "typescript",
+    --   "css",
+    --   "scss",
+    --   "json",
+    --   "http",
+    --   "vim",
+    --   "sql",
+    --   "gitignore",
+    --   "rust",
+    --   "zig",
+    --   -- add more arguments for adding more treesitter parsers
+    -- },
   },
 }
