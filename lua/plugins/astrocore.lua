@@ -44,12 +44,40 @@ return {
     mappings = {
       -- first key is the mode
       n = {
+        ["dd"] = { '"_dd', desc = "Delete line without yanking" }, -- Override `dd`
+        ["x"] = { '"_x', desc = "Delete character without yanking" }, -- Override `x`
+        ["p"] = { "p", desc = "Paste (default behavior retained)" }, -- Retain default
         -- second key is the lefthand side of the map
 
         -- navigate buffer tabs
         ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+        ["<leader>gh"] = {
+          function()
+            -- Get the full path of the current file
+            local file = vim.fn.expand "%:p"
+            if file == "" then
+              vim.notify("No file to show Git history for!", vim.log.levels.ERROR)
+              return
+            end
 
+            -- Get the relative path to the current working directory
+            local relative_file = vim.fn.fnamemodify(file, ":.") -- Relative path to cwd
+            local cwd = vim.fn.fnamemodify(file, ":h") -- Get the file's directory
+
+            -- Use ToggleTerm to open LazyGit for the file with a relative path
+            local toggleterm = require("toggleterm.terminal").Terminal
+            local lazygit = toggleterm:new {
+              cmd = "lazygit -f " .. vim.fn.shellescape(relative_file), -- Use relative file path
+              dir = cwd, -- Set working directory to the file's directory
+              direction = "float", -- Floating terminal
+              close_on_exit = true,
+              hidden = true,
+            }
+            lazygit:toggle()
+          end,
+          desc = "Open LazyGit for Git history of current file",
+        },
         -- mappings seen under group name "Buffer"
         ["<Leader>bd"] = {
           function()
@@ -66,6 +94,10 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+      },
+      v = {
+        ["p"] = { '"_dP', desc = "Paste without overwriting register" }, -- Override `p`
+        ["d"] = { '"_d', desc = "Delete without yanking" },
       },
     },
   },
