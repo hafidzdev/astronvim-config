@@ -9,6 +9,7 @@ return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
+  { import = "astrocommunity.recipes.vscode" },
   { import = "astrocommunity.colorscheme.nightfox-nvim" },
   -- import/override with your plugins folder
 }
