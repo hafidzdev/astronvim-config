@@ -31,7 +31,7 @@ return {
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true, -- sets vim.opt.wrap
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -47,11 +47,13 @@ return {
         ["dd"] = { '"_dd', desc = "Delete line without yanking" }, -- Override `dd`
         ["x"] = { '"_x', desc = "Delete character without yanking" }, -- Override `x`
         ["p"] = { "p", desc = "Paste (default behavior retained)" }, -- Retain default
-        -- second key is the lefthand side of the map
-
-        -- navigate buffer tabs
+        ["<D-k>"] = { ":m .-2<CR>==", desc = "Move line up" },
+        ["<D-j>"] = { ":m .+1<CR>==", desc = "Move line down" },
         ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+        ["<D-l>"] = { ":m .-2<CR>==", desc = "Move line up" }, -- Change to <D-l> for moving line up
+        ["<D-h>"] = { ":m .+1<CR>==", desc = "Move line down" }, -- Change to <D-h> for moving line down
+
         ["<leader>gh"] = {
           function()
             -- Get the full path of the current file
@@ -98,6 +100,8 @@ return {
       v = {
         ["p"] = { '"_dP', desc = "Paste without overwriting register" }, -- Override `p`
         ["d"] = { '"_d', desc = "Delete without yanking" },
+        ["<D-j>"] = { ":m '>+1<CR>gv=gv", desc = "Move selection down" },
+        ["<D-k>"] = { ":m '<-2<CR>gv=gv", desc = "Move selection up" },
       },
     },
   },
